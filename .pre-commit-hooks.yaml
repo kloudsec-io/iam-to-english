@@ -1,0 +1,8 @@
+- id: iam-to-english
+  name: iam-to-english (IAM policy risk check)
+  description: Fails when an IAM policy grants privilege escalation or other HIGH/CRITICAL risks.
+  entry: iam-to-english --fail-on HIGH
+  language: python
+  types_or: [json, yaml]
+  # Only files that look like IAM policies by default; override `files:` in your config
+  files: (^|/)(iam|policies|policy)[^/]*/.*|[^/]*polic(y|ies)[^/]*\.(json|ya?ml)$

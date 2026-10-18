@@ -1,0 +1,66 @@
+name: "iam-to-english"
+description: "Explain AWS IAM policies in plain English and fail the build on privilege escalation or other risky permissions."
+branding:
+  icon: "shield"
+  color: "orange"
+
+inputs:
+  files:
+    description: "Policy files to analyze (space-separated, globs allowed), e.g. 'policies/*.json'"
+    required: true
+  fail-on:
+    description: "Fail when a finding is at or above this severity: CRITICAL, HIGH, MEDIUM, LOW, or empty to never fail"
+    required: false
+    default: "HIGH"
+  format:
+    description: "Report format written to the job summary: markdown, text or json"
+    required: false
+    default: "markdown"
+  python-version:
+    description: "Python version used to run the tool"
+    required: false
+    default: "3.12"
+
+outputs:
+  report:
+    description: "Path to the generated report file"
+    value: ${{ steps.run.outputs.report }}
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/setup-python@v5
+      with:
+        python-version: ${{ inputs.python-version }}
+
+    - name: Install iam-to-english
+      shell: bash
+      run: pip install --quiet "${GITHUB_ACTION_PATH}"
+
+    - name: Analyze IAM policies
+      id: run
+      shell: bash
+      env:
+        FILES: ${{ inputs.files }}
+        FAIL_ON: ${{ inputs.fail-on }}
+        FORMAT: ${{ inputs.format }}
+      run: |
+        report="${RUNNER_TEMP}/iam-to-english-report.${FORMAT/markdown/md}"
+        args=(-f "$FORMAT")
+        if [ -n "$FAIL_ON" ]; then args+=(--fail-on "$FAIL_ON"); fi
+        set +e
+        # FILES is intentionally unquoted so globs and multiple paths expand
+        # shellcheck disable=SC2086
+        iam-to-english $FILES "${args[@]}" > "$report"
+        status=$?
+        set -e
+        cat "$report"
+        if [ "$FORMAT" = "json" ]; then
+          { echo '```json'; cat "$report"; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+        elif [ "$FORMAT" = "text" ]; then
+          { echo '```'; cat "$report"; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+        else
+          cat "$report" >> "$GITHUB_STEP_SUMMARY"
+        fi
+        echo "report=$report" >> "$GITHUB_OUTPUT"
+        exit $status

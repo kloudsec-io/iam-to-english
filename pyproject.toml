@@ -1,0 +1,65 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "iam-to-english"
+version = "1.0.0"
+description = "Translate AWS IAM policies into plain English and detect privilege escalation paths"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+authors = [
+    {name = "Tarek CHEIKH", email = "tarek@kloudsec.io"},
+]
+keywords = ["aws", "iam", "security", "policy", "cli", "privilege-escalation", "least-privilege", "devsecops"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Security",
+    "Topic :: System :: Systems Administration",
+]
+dependencies = [
+    "click>=8.0",
+    "boto3>=1.35.0",
+    "pyyaml>=6.0",
+    "anthropic>=1.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "ruff>=0.1.0",
+    "moto[iam,s3]>=5.0",
+]
+
+[project.scripts]
+iam-to-english = "iam_to_english.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/kloudsec-io/iam-to-english"
+Repository = "https://github.com/kloudsec-io/iam-to-english"
+Issues = "https://github.com/kloudsec-io/iam-to-english/issues"
+Changelog = "https://github.com/kloudsec-io/iam-to-english/blob/main/CHANGELOG.md"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
