@@ -1,0 +1,5 @@
+include LICENSE README.md CHANGELOG.md CONTRIBUTING.md SECURITY.md DESIGN.md action.yml .pre-commit-hooks.yaml
+recursive-include examples *
+recursive-include assets *
+recursive-include tests *.py *.json *.yaml
+global-exclude __pycache__ *.py[cod] .DS_Store
