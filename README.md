@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/iam-to-english-logo.png" alt="iam-to-english logo" width="140">
+  <img src="https://raw.githubusercontent.com/kloudsec-io/iam-to-english/main/assets/iam-to-english-logo.png" alt="iam-to-english logo" width="140">
 </p>
 
 <h1 align="center">iam-to-english</h1>
@@ -12,11 +12,11 @@
   <a href="https://pypi.org/project/iam-to-english/"><img src="https://img.shields.io/pypi/v/iam-to-english" alt="PyPI version"></a>
   <a href="https://pypi.org/project/iam-to-english/"><img src="https://img.shields.io/pypi/pyversions/iam-to-english" alt="Python versions"></a>
   <a href="https://hub.docker.com/r/kloudsecio/iam-to-english"><img src="https://img.shields.io/docker/pulls/kloudsecio/iam-to-english" alt="Docker pulls"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT license"></a>
+  <a href="https://github.com/kloudsec-io/iam-to-english/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT license"></a>
 </p>
 
 <p align="center">
-  <img src="assets/iam-to-english-in-action.png" alt="A JSON IAM policy is read and turned into a plain-English summary with its risk level" width="820">
+  <img src="https://raw.githubusercontent.com/kloudsec-io/iam-to-english/main/assets/iam-to-english-in-action.png" alt="A JSON IAM policy is read and turned into a plain-English summary with its risk level" width="820">
 </p>
 
 `iam-to-english` reads an IAM policy (identity policy, role trust policy, S3 bucket policy...) and tells you,
@@ -518,10 +518,10 @@ iam-to-english examples/public-bucket-policy.json      # public website bucket w
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md). Bug reports with a (sanitized) policy that produces a wrong or
+See [CONTRIBUTING.md](https://github.com/kloudsec-io/iam-to-english/blob/main/CONTRIBUTING.md). Bug reports with a (sanitized) policy that produces a wrong or
 noisy result are the most valuable contribution.
 
-To report a security vulnerability, see [SECURITY.md](SECURITY.md).
+To report a security vulnerability, see [SECURITY.md](https://github.com/kloudsec-io/iam-to-english/blob/main/SECURITY.md).
 
 ## License
 
